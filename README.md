@@ -35,6 +35,15 @@ forge create src/Operator.sol:OperatorInherit \
 --verify 
 ```
 
+## Deploy and verify Chainlink testRequestUint256.sol
+```
+forge create src/testRequestUint256.sol:testRequestUint256 \
+--private-key $devTestnetPrivateKey \
+--rpc-url $scrollSepoliaHTTPS \
+--etherscan-api-key $scrollscanApiKey \
+--verify 
+```
+
 ## Compiler Optimization Error Fix
 
 If you get the following error trying to inherit Operator.sol during compilation:
