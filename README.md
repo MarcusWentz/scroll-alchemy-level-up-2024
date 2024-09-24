@@ -1,5 +1,23 @@
 # scroll-alchemy-level-up-2024
 
+## Chainlink Any API Nodes
+
+OperatorInherit.sol deployed and verified on Scroll Sepolia:
+
+https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#code
+
+As the contract owner, add new Chainlink node addresses with the function:
+
+```solidity 
+setauthorizedsenders(
+    [
+    "<chainlink_node_address>"
+    ]
+)
+```
+
+https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#writeContract#F14
+
 ## Foundry 
 
 :warning: Note: you might need to add libraries in forge with remappings.txt :warning:
