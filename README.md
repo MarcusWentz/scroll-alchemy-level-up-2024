@@ -2,7 +2,9 @@
 
 ## Chainlink Any API Nodes
 
-OperatorInherit.sol deployed and verified on Scroll Sepolia:
+## OperatorInherit.sol
+
+Inherits Operator.sol deployed and verified on Scroll Sepolia:
 
 https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#code
 
@@ -17,6 +19,12 @@ setauthorizedsenders(
 ```
 
 https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#writeContract#F14
+
+## testRequestUint256.sol
+
+Working uint256 request contract that updated uint256 values:
+
+https://sepolia.scrollscan.com/address/0x83ef71b80c78b1ca3e044e9bc282077c3b209008#code
 
 ## Foundry 
 
