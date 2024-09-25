@@ -1,8 +1,8 @@
 # scroll-alchemy-level-up-2024
 
-## Chainlink Any API Nodes
+## Chainlink Oracle Contracts
 
-## OperatorInherit.sol
+### OperatorInherit.sol
 
 Inherits Operator.sol deployed and verified on Scroll Sepolia:
 
@@ -20,7 +20,7 @@ setauthorizedsenders(
 
 https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#writeContract#F14
 
-## testRequestUint256.sol
+### testRequestUint256.sol
 
 Working uint256 request contract that updated uint256 values:
 
@@ -30,11 +30,11 @@ https://sepolia.scrollscan.com/address/0x83ef71b80c78b1ca3e044e9bc282077c3b20900
 
 :warning: Note: you might need to add libraries in forge with remappings.txt :warning:
 
-## Install Chainlink libraries
+### Install Chainlink libraries
 ```
 forge install smartcontractkit/chainlink-brownie-contracts --no-commit
 ```
-## Deploy and verify Chainlink Operator.sol
+### Deploy and verify Chainlink Operator.sol
 ```
 forge create src/Operator.sol:OperatorInherit \
 --private-key $devTestnetPrivateKey \
@@ -43,7 +43,7 @@ forge create src/Operator.sol:OperatorInherit \
 --verify 
 ```
 
-## Deploy and verify Chainlink testRequestUint256.sol
+### Deploy and verify Chainlink testRequestUint256.sol
 ```
 forge create src/testRequestUint256.sol:testRequestUint256 \
 --private-key $devTestnetPrivateKey \
@@ -52,7 +52,7 @@ forge create src/testRequestUint256.sol:testRequestUint256 \
 --verify 
 ```
 
-## Compiler Optimization Error Fix
+### Compiler Optimization Error Fix
 
 If you get the following error trying to inherit Operator.sol during compilation:
 ```shell
