@@ -12,7 +12,7 @@ contract testRequestUint256 is ChainlinkClient {
 
     address constant chainlinkTokenAddressScroll = 0x63e202771bA9B2E316f1DEC137Ef3b774072AF75;
     address constant oracleOperatorAddressScroll = 0x3d38E57b5d23c3881AffB8BC0978d5E0bd96c1C6;
-    string constant jobIdScroll = "65d550f65c9c4dc08995c2fd9e49b72b";
+    string constant jobIdScroll = "9529ba6453534181936d40dfa2ae9938";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     uint256 public currentPrice;
 
@@ -35,7 +35,7 @@ contract testRequestUint256 is ChainlinkClient {
             "get",
             "https://marcuswentz.github.io/chainlink_test_json_url_types/"
         );
-        req._add("path", "uint256.priceOfEth");
+        req._add("path", "uint256");
         req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
