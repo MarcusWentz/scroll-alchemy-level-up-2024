@@ -6,6 +6,12 @@ pragma solidity 0.8.26;
 // Foundry 
 import {ChainlinkClient,Chainlink} from "chainlink/v0.8/ChainlinkClient.sol"; 
 
+interface IERC20 {
+    // function transfer(address to, uint256 value) external returns (bool);
+    // function transferFrom(address from, address to, uint256 value) external returns (bool);
+    function balanceOf(address account) external view returns (uint256);
+}
+
 contract ScrollLibrary is ChainlinkClient {
 
     using Chainlink for Chainlink.Request;
@@ -28,7 +34,10 @@ contract ScrollLibrary is ChainlinkClient {
     }
 
     function getMultipleChainlinkRequests() public {
-
+        uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
+        require(requestFeeTwoRequest >= 2*ORACLE_PAYMENT, "CONTRACT NEEDS 0.02 LINK TO DO THIS! PLEASE SEND LINK TO THIS CONTRACT!");
+        requestUint256();
+        requestString();
     }
 
     function requestUint256() public {
