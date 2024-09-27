@@ -65,6 +65,15 @@ forge create src/testRequestString.sol:testRequestString \
 --verify 
 ```
 
+### Deploy and verify ScrollLibrary.sol
+```
+forge create src/ScrollLibrary.sol:ScrollLibrary \
+--private-key $devTestnetPrivateKey \
+--rpc-url $scrollSepoliaHTTPS \
+--etherscan-api-key $scrollscanApiKey \
+--verify 
+```
+
 ### Compiler Optimization Error Fix
 
 If you get the following error trying to inherit Operator.sol during compilation:
