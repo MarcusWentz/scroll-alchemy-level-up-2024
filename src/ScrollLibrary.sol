@@ -25,6 +25,7 @@ contract ScrollLibrary is ChainlinkClient {
     uint256 public currentPrice;
     string public stringOracleRequestValue;
 
+    error notEnoughLinkForTwoRequests();
 
     event RequestUint256Fulfilled(bytes32 indexed requestId, uint256 indexed numberValue);
     event RequestStringFulfilled(bytes32 indexed requestId, string indexed stringValue);
@@ -35,7 +36,7 @@ contract ScrollLibrary is ChainlinkClient {
 
     function getMultipleChainlinkRequests() public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
-        require(requestFeeTwoRequest >= 2*ORACLE_PAYMENT, "CONTRACT NEEDS 0.02 LINK TO DO THIS! PLEASE SEND LINK TO THIS CONTRACT!");
+        if(requestFeeTwoRequest < 2*ORACLE_PAYMENT) revert notEnoughLinkForTwoRequests();
         requestUint256();
         requestString();
     }
