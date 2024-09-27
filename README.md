@@ -1,6 +1,10 @@
 # scroll-alchemy-level-up-2024
 
-## Chainlink Oracle Contracts
+## Scroll Sepolia Chainlink Node Setup
+
+https://github.com/MarcusWentz/chainlink-scroll-sepolia
+
+## Scroll Sepolia Chainlink Oracle Contracts
 
 ### OperatorInherit.sol
 
@@ -19,10 +23,6 @@ setauthorizedsenders(
 ```
 
 https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c6#writeContract#F14
-
-## Scroll Sepolia Chainlink Node Guide
-
-https://github.com/MarcusWentz/chainlink-scroll-sepolia
 
 ### testRequestUint256.sol
 
