@@ -12,7 +12,7 @@ contract testRequestString is ChainlinkClient {
 
     address constant chainlinkTokenAddressScroll = 0x63e202771bA9B2E316f1DEC137Ef3b774072AF75;
     address constant oracleOperatorAddressScroll = 0x3d38E57b5d23c3881AffB8BC0978d5E0bd96c1C6;
-    string constant jobIdScroll = "4a99df35ebe749aab98645ef6f03bf8f";
+    string constant jobIdScrollString = "4a99df35ebe749aab98645ef6f03bf8f";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     
     string public stringOracleRequestValue;
@@ -28,7 +28,7 @@ contract testRequestString is ChainlinkClient {
 
     function requestEthereumPrice() public {
         Chainlink.Request memory req = _buildChainlinkRequest(
-            stringToBytes32(jobIdScroll),
+            stringToBytes32(jobIdScrollString),
             address(this),
             this.fulfillEthereumPrice.selector
         );
