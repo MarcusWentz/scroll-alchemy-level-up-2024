@@ -5,14 +5,10 @@ pragma solidity 0.8.26;
 // import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 // Foundry 
 import {ChainlinkClient,Chainlink} from "chainlink/v0.8/ChainlinkClient.sol"; 
+import {IERC20} from "./interfaces/IERC20.sol";
+import {IScrollLibrary} from "./interfaces/IScrollLibrary.sol";
 
-interface IERC20 {
-    // function transfer(address to, uint256 value) external returns (bool);
-    // function transferFrom(address from, address to, uint256 value) external returns (bool);
-    function balanceOf(address account) external view returns (uint256);
-}
-
-contract ScrollLibrary is ChainlinkClient {
+contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
 
     using Chainlink for Chainlink.Request;
 
@@ -21,18 +17,13 @@ contract ScrollLibrary is ChainlinkClient {
     string constant jobIdScrollString = "4a99df35ebe749aab98645ef6f03bf8f";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     
+    string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+
     string public bookName;
     string public bookAuthor;
     string public bookImageLinkUrl;
 
-    // Example with Sonic the Hedgehog book.
-    string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
-
-    error notEnoughLinkForTwoRequests();
-
-    event newStringUrlRequest(string requestUrl);
-    event RequestUint256Fulfilled(bytes32 indexed requestId, uint256 indexed numberValue);
-    event RequestStringFulfilled(bytes32 indexed requestId, string indexed stringValue);
+    uint256 booksOnShelf;
 
     constructor() {
         _setChainlinkToken(chainlinkTokenAddressScroll);
@@ -40,7 +31,8 @@ contract ScrollLibrary is ChainlinkClient {
 
     function getMultipleChainlinkRequests(string calldata isbnValue) public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
-        if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert notEnoughLinkForTwoRequests();
+        if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert NotEnoughLinkForTwoRequests();
+        if(booksOnShelf == 5) revert FiveBooksOnShelfAlready();
         string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
         emit newStringUrlRequest(requestUrlMemory);
         requestBookName(requestUrlMemory);
