@@ -88,7 +88,11 @@ optimizer = false
 
 ## Frontend
 
-Run locally for testing with:
+### GitHub Pages Hosting Link
+
+https://marcuswentz.github.io/scroll-alchemy-level-up-2024/
+
+### Run locally for testing
 
 ⚠️ Node.js version v16.14.2 is recommended to avoid errors running the website locally. ⚠️
 ```shell
