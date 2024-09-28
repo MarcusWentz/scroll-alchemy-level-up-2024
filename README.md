@@ -86,6 +86,8 @@ add the following flag in foundry.toml (under section "[profile.default]"):
 optimizer = false
 ```
 
+## Frontend
+
 Run locally for testing with:
 
 ⚠️ Node.js version v16.14.2 is recommended to avoid errors running the website locally. ⚠️

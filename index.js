@@ -7,13 +7,13 @@ let accounts = []; ////Empty array to be filled once Metamask is called.
 document.getElementById("enableEthereumButton").innerHTML =  "Connect Metamask 🦊"
 document.getElementById("getValueStateSmartContract").innerHTML =  "Loading..."
 
-const baseSepoliaChainId = 84532;
+const scrollSepoliaChainId = 534351;
 
 const provider = new ethers.providers.Web3Provider(window.ethereum); //Imported ethers from index.html with "<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>".
 
 // const signer = provider.getSigner(); //Do this when the user clicks "enableEthereumButton" which will call getAccount() to get the signer private key for the provider.  
  
-const contractAddress_JS = '0xeD62F27e9e886A27510Dc491F5530996719cEd3d'
+const contractAddress_JS = '0x1f741b3B4aCaD59274eD0921784B7696c066DC07'
 const contractABI_JS = [{"anonymous":false,"inputs":[],"name":"setEvent","type":"event"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"}],"name":"set","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"storedData","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
 
 const contractDefined_JS = new ethers.Contract(contractAddress_JS, contractABI_JS, provider);
@@ -26,11 +26,11 @@ getDataOnChainToLoad()
 async function getDataOnChainToLoad(){
   let chainIdConnected = await getChainIdConnected();
 
-  if(chainIdConnected == baseSepoliaChainId){
+  if(chainIdConnected == scrollSepoliaChainId){
     getStoredData()
   }
-  if(chainIdConnected != baseSepoliaChainId){
-    document.getElementById("getValueStateSmartContract").innerHTML =  "Install Metamask and select Base Sepolia Testnet to have a Web3 provider to read blockchain data."
+  if(chainIdConnected != scrollSepoliaChainId){
+    document.getElementById("getValueStateSmartContract").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
   }
 
 }
@@ -148,19 +148,19 @@ async function enableMetamaskOnSepolia() {
   console.log("chainIdConnected: " + chainIdConnected)
 
   //Check if user is on the Sepolia testnet. If not, alert them to change to Sepolia.
-  if(chainIdConnected != baseSepoliaChainId){
+  if(chainIdConnected != scrollSepoliaChainId){
     // alert("You are not on the Sepolia Testnet! Please switch to Sepolia and refresh page.")
     try{
       await window.ethereum.request({
           method: "wallet_switchEthereumChain",
           params: [{
-             chainId: "0x" + baseSepoliaChainId.toString(16) //Convert decimal to hex string.
+             chainId: "0x" + scrollSepoliaChainId.toString(16) //Convert decimal to hex string.
           }]
         })
       location.reload(); 
-      // alert("Failed to add the network at chainId " + baseSepoliaChainId + " with wallet_addEthereumChain request. Add the network with https://chainlist.org/ or do it manually. Error log: " + error.message)
+      // alert("Failed to add the network at chainId " + scrollSepoliaChainId + " with wallet_addEthereumChain request. Add the network with https://chainlist.org/ or do it manually. Error log: " + error.message)
     } catch (error) {
-      alert("Failed to add the network at chainId " + baseSepoliaChainId + " with wallet_addEthereumChain request. Add the network with https://chainlist.org/ or do it manually. Error log: " + error.message)
+      alert("Failed to add the network at chainId " + scrollSepoliaChainId + " with wallet_addEthereumChain request. Add the network with https://chainlist.org/ or do it manually. Error log: " + error.message)
     }
   }
 }
