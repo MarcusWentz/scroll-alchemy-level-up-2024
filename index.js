@@ -48,7 +48,7 @@ async function getStoredData() {
   let storedDataCallValue3 = await contractDefined_JS.bookName(2)
   let storedDataCallValue4 = await contractDefined_JS.bookName(3)
   let storedDataCallValue5 = await contractDefined_JS.bookName(4)
-  if(storedDataCallValue === undefined){
+  if(storedDataCallValue1 === undefined){
     document.getElementById("getValueStateSmartContract1").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
     document.getElementById("getValueStateSmartContract2").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
     document.getElementById("getValueStateSmartContract3").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
