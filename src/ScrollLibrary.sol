@@ -18,12 +18,14 @@ contract ScrollLibrary is ChainlinkClient {
 
     address constant chainlinkTokenAddressScroll = 0x63e202771bA9B2E316f1DEC137Ef3b774072AF75;
     address constant oracleOperatorAddressScroll = 0x3d38E57b5d23c3881AffB8BC0978d5E0bd96c1C6;
-    string constant jobIdScrollUint256 = "343427c994ef4d96875926fb6c0d2742";
     string constant jobIdScrollString = "4a99df35ebe749aab98645ef6f03bf8f";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     
     uint256 public currentPrice;
-    string public stringOracleRequestValue;
+
+    string public bookName;
+    string public bookAuthor;
+    string public bookImageLinkUrl;
 
     error notEnoughLinkForTwoRequests();
 
@@ -36,39 +38,20 @@ contract ScrollLibrary is ChainlinkClient {
 
     function getMultipleChainlinkRequests() public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
-        if(requestFeeTwoRequest < 2*ORACLE_PAYMENT) revert notEnoughLinkForTwoRequests();
-        requestUint256();
-        requestString();
+        if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert notEnoughLinkForTwoRequests();
+        requestBookName();
+        requestBookAuthor();
+        requestBookImageLinkUrl();
     }
 
-    function requestUint256() public {
-        Chainlink.Request memory req = _buildChainlinkRequest(
-            stringToBytes32(jobIdScrollUint256),
-            address(this),
-            this.fulfillUint256.selector
-        );
-        req._add(
-            "get",
-            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
-        );
-        req._add("path", "uint256");
-        req._addInt("times", 1);
-        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
-    }
+////
 
-    function fulfillUint256(
-        bytes32 _requestId,
-        uint256 _price
-    ) public recordChainlinkFulfillment(_requestId) {
-        emit RequestUint256Fulfilled(_requestId, _price);
-        currentPrice = _price;
-    }
 
-    function requestString() public {
+    function requestBookName() public {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
-            this.fulfillString.selector
+            this.fulfillBookName.selector
         );
         req._add(
             "get",
@@ -79,12 +62,58 @@ contract ScrollLibrary is ChainlinkClient {
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
-    function fulfillString(
+    function fulfillBookName(
         bytes32 _requestId,
         string calldata _stringReturned
     ) public recordChainlinkFulfillment(_requestId) {
         emit RequestStringFulfilled(_requestId, _stringReturned);
-        stringOracleRequestValue = _stringReturned;
+        bookName = _stringReturned;
+    }
+
+    function requestBookAuthor() public {
+        Chainlink.Request memory req = _buildChainlinkRequest(
+            stringToBytes32(jobIdScrollString),
+            address(this),
+            this.fulfillBookAuthor.selector
+        );
+        req._add(
+            "get",
+            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
+        );
+        req._add("path", "string");
+        req._addInt("times", 1);
+        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+    }
+
+    function fulfillBookAuthor(
+        bytes32 _requestId,
+        string calldata _stringReturned
+    ) public recordChainlinkFulfillment(_requestId) {
+        emit RequestStringFulfilled(_requestId, _stringReturned);
+        bookAuthor = _stringReturned;
+    }
+
+    function requestBookImageLinkUrl() public {
+        Chainlink.Request memory req = _buildChainlinkRequest(
+            stringToBytes32(jobIdScrollString),
+            address(this),
+            this.fulfillBookImageLinkUrl.selector
+        );
+        req._add(
+            "get",
+            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
+        );
+        req._add("path", "string");
+        req._addInt("times", 1);
+        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+    }
+
+    function fulfillBookImageLinkUrl(
+        bytes32 _requestId,
+        string calldata _stringReturned
+    ) public recordChainlinkFulfillment(_requestId) {
+        emit RequestStringFulfilled(_requestId, _stringReturned);
+        bookImageLinkUrl = _stringReturned;
     }
 
     function stringToBytes32(
