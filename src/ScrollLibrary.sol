@@ -34,6 +34,9 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         _setChainlinkToken(chainlinkTokenAddressScroll);
     }
 
+    // WARNING: IF YOU LOOP MULTIPLE CHAINLINK REQUESTS IN THE SAME BLOCK, 
+    // YOUR CHAINLINK NODE MIGHT GET STUCK WITH PENDING TRANSACTIONS AND MIGHT
+    // NEED TO BE RESTARTED OR COMPLETELY DELETED TO FIX THE ISSUE MANUALLY.
     function getMultipleChainlinkRequests(string calldata isbnValue) public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
         if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert NotEnoughLinkForTwoRequests();
