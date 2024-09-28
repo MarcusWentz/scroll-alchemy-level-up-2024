@@ -47,10 +47,11 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
        
         uint256 currentBookIndex = bookShelfIndex;
-       
+
         bookShelfIndex += 1;
         emit newStringUrlRequest(requestUrlMemory);
-        bookIndexIsbn[bookShelfIndex] = isbnValue;
+
+        bookIndexIsbn[currentBookIndex] = isbnValue;
 
         // requestBookName(requestUrlMemory);
         // requestBookAuthor(requestUrlMemory);
