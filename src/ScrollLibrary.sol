@@ -21,9 +21,14 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
 
     uint256 public bookShelfIndex;
 
+    mapping(uint256 => string) public bookIndexIsbn;
     mapping(uint256 => string) public bookName;
     mapping(uint256 => string) public bookAuthor;
     mapping(uint256 => string) public bookImageLinkUrl;
+
+    mapping(bytes32 => uint256) public chainlinkRequestBookIndexName;
+    mapping(bytes32 => uint256) public chainlinkRequestBookIndexAuthor;
+    mapping(bytes32 => uint256) public chainlinkRequestBookIndexImageLinkUrl;
 
     constructor() {
         _setChainlinkToken(chainlinkTokenAddressScroll);
@@ -34,15 +39,19 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert NotEnoughLinkForTwoRequests();
         // Counting from 1 to 5.
         if(bookShelfIndex == 6) revert FiveBooksOnShelfAlready(); 
-        bookShelfIndex += 1;
         string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
+        uint256 currentBookIndex = bookShelfIndex;
+        bookShelfIndex += 1;
         emit newStringUrlRequest(requestUrlMemory);
-        requestBookName(requestUrlMemory);
-        requestBookAuthor(requestUrlMemory);
-        requestBookImageLinkUrl(requestUrlMemory);
+        bytes32 bookNameRequestId = requestBookName(requestUrlMemory);
+        bytes32 bookAuthorRequestId = requestBookAuthor(requestUrlMemory);
+        bytes32 bookImageUrlRequestId = requestBookImageLinkUrl(requestUrlMemory);
+        chainlinkRequestBookIndexName[bookNameRequestId] = currentBookIndex;
+        chainlinkRequestBookIndexAuthor[bookAuthorRequestId] = currentBookIndex;
+        chainlinkRequestBookIndexImageLinkUrl[bookImageUrlRequestId] = currentBookIndex; 
     }
 
-    function requestBookName(string memory requestUrl) internal {
+    function requestBookName(string memory requestUrl) internal returns(bytes32 requestId) {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -53,7 +62,8 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
             requestUrl
         );
         req._add("path", "items,0,volumeInfo,title");
-        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        requestId = _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        return requestId;
     }
 
     function fulfillBookName(
@@ -64,7 +74,7 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         bookName[bookShelfIndex] = _stringReturned;
     }
 
-    function requestBookAuthor(string memory requestUrl) internal {
+    function requestBookAuthor(string memory requestUrl) internal returns(bytes32 requestId) {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -75,7 +85,8 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
             requestUrl
         );
         req._add("path", "items,0,volumeInfo,authors,0");
-        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        requestId = _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        return requestId;   
     }
 
     function fulfillBookAuthor(
@@ -86,7 +97,7 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         bookAuthor[bookShelfIndex] = _stringReturned;
     }
 
-    function requestBookImageLinkUrl(string memory requestUrl) internal {
+    function requestBookImageLinkUrl(string memory requestUrl) internal returns(bytes32 requestId) {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -97,7 +108,8 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
             requestUrl
         );
         req._add("path", "items,0,volumeInfo,imageLinks,thumbnail");
-        _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        requestId = _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
+        return requestId;
     }
 
     function fulfillBookImageLinkUrl(
