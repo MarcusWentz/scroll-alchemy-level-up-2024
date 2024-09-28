@@ -37,7 +37,6 @@ contract testRequestString is ChainlinkClient {
             "https://marcuswentz.github.io/chainlink_test_json_url_types/"
         );
         req._add("path", "string");
-        req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 

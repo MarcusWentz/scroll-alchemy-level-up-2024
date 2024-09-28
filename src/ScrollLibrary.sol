@@ -21,8 +21,6 @@ contract ScrollLibrary is ChainlinkClient {
     string constant jobIdScrollString = "4a99df35ebe749aab98645ef6f03bf8f";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     
-    uint256 public currentPrice;
-
     string public bookName;
     string public bookAuthor;
     string public bookImageLinkUrl;
@@ -44,9 +42,6 @@ contract ScrollLibrary is ChainlinkClient {
         requestBookImageLinkUrl();
     }
 
-////
-
-
     function requestBookName() public {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
@@ -58,7 +53,6 @@ contract ScrollLibrary is ChainlinkClient {
             "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
         req._add("path", "items,0,volumeInfo,title");
-        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
@@ -81,7 +75,6 @@ contract ScrollLibrary is ChainlinkClient {
             "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
         req._add("path", "items,0,volumeInfo,authors,0");
-        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
@@ -104,7 +97,6 @@ contract ScrollLibrary is ChainlinkClient {
             "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
         req._add("path", "items,0,volumeInfo,imageLinks,thumbnail");
-        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
