@@ -13,9 +13,8 @@ const provider = new ethers.providers.Web3Provider(window.ethereum); //Imported 
 
 // const signer = provider.getSigner(); //Do this when the user clicks "enableEthereumButton" which will call getAccount() to get the signer private key for the provider.  
  
-const contractAddress_JS = '0x1f741b3B4aCaD59274eD0921784B7696c066DC07'
-const contractABI_JS = [{"anonymous":false,"inputs":[],"name":"setEvent","type":"event"},{"inputs":[{"internalType":"uint256","name":"x","type":"uint256"}],"name":"set","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"storedData","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]
-
+const contractAddress_JS = '0x7BBB7716B346874e31fA40F1c959868720f25fD2'
+const contractABI_JS = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"FiveBooksOnShelfAlready","type":"error"},{"inputs":[],"name":"NotEnoughLinkForTwoRequests","type":"error"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"id","type":"bytes32"}],"name":"ChainlinkCancelled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"id","type":"bytes32"}],"name":"ChainlinkFulfilled","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"id","type":"bytes32"}],"name":"ChainlinkRequested","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"bytes32","name":"requestId","type":"bytes32"},{"indexed":true,"internalType":"string","name":"stringValue","type":"string"}],"name":"RequestStringFulfilled","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"requestUrl","type":"string"}],"name":"newStringUrlRequest","type":"event"},{"inputs":[],"name":"ORACLE_PAYMENT","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"bookAuthor","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"bookImageLinkUrl","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"bookIndexIsbn","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"bookName","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"bookShelfIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"chainlinkRequestBookIndexAuthor","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"chainlinkRequestBookIndexImageLinkUrl","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"chainlinkRequestBookIndexName","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_requestId","type":"bytes32"},{"internalType":"string","name":"_stringReturned","type":"string"}],"name":"fulfillBookAuthor","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_requestId","type":"bytes32"},{"internalType":"string","name":"_stringReturned","type":"string"}],"name":"fulfillBookImageLinkUrl","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"_requestId","type":"bytes32"},{"internalType":"string","name":"_stringReturned","type":"string"}],"name":"fulfillBookName","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"isbnValue","type":"string"}],"name":"getMultipleChainlinkRequests","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"urlRebuiltJSON","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}]
 const contractDefined_JS = new ethers.Contract(contractAddress_JS, contractABI_JS, provider);
 
 // const contractDefined_JS = new ethers.Contract(contractAddress_JS, contractABI_JS, signer);
@@ -36,7 +35,7 @@ async function getDataOnChainToLoad(){
 }
 
 async function getStoredData() {
-  let storedDataCallValue = await contractDefined_JS.storedData()
+  let storedDataCallValue = await contractDefined_JS.bookName(0)
   if(storedDataCallValue === undefined){
     document.getElementById("getValueStateSmartContract").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
   }
@@ -66,11 +65,11 @@ async function sentTxAsync(x) {
     
 }
 
-contractDefined_JS.on("setEvent", () => {
+// contractDefined_JS.on("setEvent", () => {
 
-  getStoredData()
+//   getStoredData()
 
-});
+// });
 
 //Connect to Metamask.
 const ethereumButton = document.querySelector('#enableEthereumButton');
