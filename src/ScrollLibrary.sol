@@ -48,7 +48,7 @@ contract ScrollLibrary is ChainlinkClient {
         requestBookImageLinkUrl(requestUrlMemory);
     }
 
-    function requestBookName(string memory requestUrl) public {
+    function requestBookName(string memory requestUrl) internal {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -70,7 +70,7 @@ contract ScrollLibrary is ChainlinkClient {
         bookName = _stringReturned;
     }
 
-    function requestBookAuthor(string memory requestUrl) public {
+    function requestBookAuthor(string memory requestUrl) internal {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -92,7 +92,7 @@ contract ScrollLibrary is ChainlinkClient {
         bookAuthor = _stringReturned;
     }
 
-    function requestBookImageLinkUrl(string memory requestUrl) public {
+    function requestBookImageLinkUrl(string memory requestUrl) internal {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
