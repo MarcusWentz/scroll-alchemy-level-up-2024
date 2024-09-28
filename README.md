@@ -38,6 +38,11 @@ https://sepolia.scrollscan.com/address/0x83ef71b80c78b1ca3e044e9bc282077c3b20900
 ```
 forge install smartcontractkit/chainlink-brownie-contracts --no-commit
 ```
+
+### Test and Fork Scroll Sepolia
+```
+forge coverage --fork-url $scrollSepoliaHTTPS --report lcov && genhtml lcov.info -o report --branch-coverage
+```
 ### Deploy and verify Chainlink Operator.sol
 ```
 forge create src/Operator.sol:OperatorInherit \
