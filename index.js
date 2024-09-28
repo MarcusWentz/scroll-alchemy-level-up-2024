@@ -5,11 +5,11 @@ detectMetamaskInstalled() //When the page is opened check for error handling iss
 
 let accounts = []; ////Empty array to be filled once Metamask is called.
 document.getElementById("enableEthereumButton").innerHTML =  "Connect Metamask 🦊"
-document.getElementById("getValueStateSmartContract1").innerHTML =  "Loading..."
-document.getElementById("getValueStateSmartContract2").innerHTML =  "Loading..."
-document.getElementById("getValueStateSmartContract3").innerHTML =  "Loading..."
-document.getElementById("getValueStateSmartContract4").innerHTML =  "Loading..."
-document.getElementById("getValueStateSmartContract5").innerHTML =  "Loading..."
+document.getElementById("getBookName1").innerHTML =  "Loading..."
+document.getElementById("getBookName2").innerHTML =  "Loading..."
+document.getElementById("getBookName3").innerHTML =  "Loading..."
+document.getElementById("getBookName4").innerHTML =  "Loading..."
+document.getElementById("getBookName5").innerHTML =  "Loading..."
 
 const scrollSepoliaChainId = 534351;
 
@@ -33,11 +33,11 @@ async function getDataOnChainToLoad(){
     getStoredData()
   }
   if(chainIdConnected != scrollSepoliaChainId){
-    document.getElementById("getValueStateSmartContract1").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract2").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract3").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract4").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract5").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName1").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName2").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName3").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName4").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName5").innerHTML =  "Install Metamask and select Scroll Sepolia Testnet to have a Web3 provider to read blockchain data."
   }
 
 }
@@ -49,18 +49,18 @@ async function getStoredData() {
   let storedDataCallValue4 = await contractDefined_JS.bookName(3)
   let storedDataCallValue5 = await contractDefined_JS.bookName(4)
   if(storedDataCallValue1 === undefined){
-    document.getElementById("getValueStateSmartContract1").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract2").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract3").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract4").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-    document.getElementById("getValueStateSmartContract5").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName1").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName2").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName3").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName4").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+    document.getElementById("getBookName5").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
   }
   else{
-    document.getElementById("getValueStateSmartContract1").innerHTML =  storedDataCallValue1
-    document.getElementById("getValueStateSmartContract2").innerHTML =  storedDataCallValue2
-    document.getElementById("getValueStateSmartContract3").innerHTML =  storedDataCallValue3
-    document.getElementById("getValueStateSmartContract4").innerHTML =  storedDataCallValue4
-    document.getElementById("getValueStateSmartContract5").innerHTML =  storedDataCallValue5
+    document.getElementById("getBookName1").innerHTML =  storedDataCallValue1
+    document.getElementById("getBookName2").innerHTML =  storedDataCallValue2
+    document.getElementById("getBookName3").innerHTML =  storedDataCallValue3
+    document.getElementById("getBookName4").innerHTML =  storedDataCallValue4
+    document.getElementById("getBookName5").innerHTML =  storedDataCallValue5
   }
 }
 
@@ -126,11 +126,11 @@ function detectMetamaskInstalled(){
   }
   catch(missingMetamask) {
      alert("Metamask not detected in browser! Install Metamask browser extension, then refresh page!")
-     document.getElementById("getValueStateSmartContract1").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-     document.getElementById("getValueStateSmartContract2").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-     document.getElementById("getValueStateSmartContract3").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-     document.getElementById("getValueStateSmartContract4").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
-     document.getElementById("getValueStateSmartContract5").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+     document.getElementById("getBookName1").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+     document.getElementById("getBookName2").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+     document.getElementById("getBookName3").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+     document.getElementById("getBookName4").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
+     document.getElementById("getBookName5").innerHTML =  "Install Metamask and select Sepolia Testnet to have a Web3 provider to read blockchain data."
   }
 
 }
