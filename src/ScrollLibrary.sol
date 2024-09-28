@@ -55,10 +55,10 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
+            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
-        req._add("path", "string");
-        req._addInt("times", 1);
+        req._add("path", "items,0,volumeInfo,title");
+        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
@@ -78,10 +78,10 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
+            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
-        req._add("path", "string");
-        req._addInt("times", 1);
+        req._add("path", "items,0,volumeInfo,authors,0");
+        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
@@ -101,10 +101,10 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://marcuswentz.github.io/chainlink_test_json_url_types/"
+            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
         );
-        req._add("path", "string");
-        req._addInt("times", 1);
+        req._add("path", "items,0,volumeInfo,imageLinks,thumbnail");
+        // req._addInt("times", 1);
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
     }
 
