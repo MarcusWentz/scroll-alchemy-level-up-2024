@@ -23,8 +23,12 @@ async function getJsonValuesFromISBN(inputISBN) {
     let responseDataJSON = responseRawJSON.data;
     // console.log(responseRawJSON)
     // console.log(responseDataJSON)
+
+    // req._add("path", "items,0,volumeInfo,title");
     console.log(responseDataJSON.items[0].volumeInfo.title)
+    // req._add("path", "items,0,volumeInfo,authors,0");
     console.log(responseDataJSON.items[0].volumeInfo.authors[0])
+    // req._add("path", "items,0,volumeInfo,imageLinks,thumbnail");
     console.log(responseDataJSON.items[0].volumeInfo.imageLinks.thumbnail)
 
 }
