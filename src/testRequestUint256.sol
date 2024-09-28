@@ -12,7 +12,7 @@ contract testRequestUint256 is ChainlinkClient {
 
     address constant chainlinkTokenAddressScroll = 0x63e202771bA9B2E316f1DEC137Ef3b774072AF75;
     address constant oracleOperatorAddressScroll = 0x3d38E57b5d23c3881AffB8BC0978d5E0bd96c1C6;
-    string constant jobIdScrollUint256 = "343427c994ef4d96875926fb6c0d2742";
+    string constant jobIdScrollUint256 = "55fc09a2d175416ab949fcc199921281";
     uint256 public constant ORACLE_PAYMENT = (1 * LINK_DIVISIBILITY) / 10; // 0.1 * 10**18 (0.1 LINK)
     uint256 public currentPrice;
 

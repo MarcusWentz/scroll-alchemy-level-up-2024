@@ -28,7 +28,13 @@ https://sepolia.scrollscan.com/address/0x3d38e57b5d23c3881affb8bc0978d5e0bd96c1c
 
 Working uint256 request contract that updated uint256 values:
 
-https://sepolia.scrollscan.com/address/0x83ef71b80c78b1ca3e044e9bc282077c3b209008#code
+https://sepolia.scrollscan.com/address/0x841458a0b4d3df3a14dec51cb96f1c0fc03a96ea#code
+
+### testRequestString.sol
+
+Working string request contract that updated uint256 values:
+
+https://sepolia.scrollscan.com/address/0xcafec77253150a920a81118ae82381223b4b13f5#code
 
 ## Foundry 
 
@@ -61,7 +67,7 @@ forge create src/testRequestUint256.sol:testRequestUint256 \
 --verify 
 ```
 
-### Deploy and verify Chainlink testRequestUint256.sol
+### Deploy and verify Chainlink testRequestString.sol
 ```
 forge create src/testRequestString.sol:testRequestString \
 --private-key $devTestnetPrivateKey \
