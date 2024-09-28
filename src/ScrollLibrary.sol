@@ -37,8 +37,8 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
     function getMultipleChainlinkRequests(string calldata isbnValue) public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
         if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert NotEnoughLinkForTwoRequests();
-        // Counting from 1 to 5.
-        if(bookShelfIndex == 6) revert FiveBooksOnShelfAlready(); 
+        // Counting from 0 to 4 instead of 1 to 5.
+        if(bookShelfIndex == 5) revert FiveBooksOnShelfAlready(); 
         string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
         uint256 currentBookIndex = bookShelfIndex;
         bookShelfIndex += 1;
