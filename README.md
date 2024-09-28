@@ -116,3 +116,12 @@ npx http-server
 or
 ```shell
 http-server
+```
+
+<div class="container"></div>
+  <div class="center">
+    <img class="img-fluid" alt="Responsive image" src="http://books.google.com/books/content?id=fo4rzdaHDAwC&printsec=frontcover&img=1&zoom=1&source=gbs_api" width="450" height="450">
+  </div>
+</div>
+
+<div style="min-height: 50vh"> </div>
