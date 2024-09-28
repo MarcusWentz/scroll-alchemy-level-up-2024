@@ -26,7 +26,7 @@ contract ScrollLibrary is ChainlinkClient {
     string public bookImageLinkUrl;
 
     // Example with Sonic the Hedgehog book.
-    string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902";
+    string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
     error notEnoughLinkForTwoRequests();
 
