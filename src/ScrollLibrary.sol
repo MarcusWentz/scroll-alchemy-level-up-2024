@@ -19,11 +19,11 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
     
     string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
 
-    string public bookName;
-    string public bookAuthor;
-    string public bookImageLinkUrl;
+    uint256 public bookShelfIndex;
 
-    uint256 booksOnShelf;
+    mapping(uint256 => string) public bookName;
+    mapping(uint256 => string) public bookAuthor;
+    mapping(uint256 => string) public bookImageLinkUrl;
 
     constructor() {
         _setChainlinkToken(chainlinkTokenAddressScroll);
@@ -32,7 +32,9 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
     function getMultipleChainlinkRequests(string calldata isbnValue) public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
         if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert NotEnoughLinkForTwoRequests();
-        if(booksOnShelf == 5) revert FiveBooksOnShelfAlready();
+        // Counting from 1 to 5.
+        if(bookShelfIndex == 6) revert FiveBooksOnShelfAlready(); 
+        bookShelfIndex += 1;
         string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
         emit newStringUrlRequest(requestUrlMemory);
         requestBookName(requestUrlMemory);
@@ -59,7 +61,7 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         string calldata _stringReturned
     ) public recordChainlinkFulfillment(_requestId) {
         emit RequestStringFulfilled(_requestId, _stringReturned);
-        bookName = _stringReturned;
+        bookName[bookShelfIndex] = _stringReturned;
     }
 
     function requestBookAuthor(string memory requestUrl) internal {
@@ -81,7 +83,7 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         string calldata _stringReturned
     ) public recordChainlinkFulfillment(_requestId) {
         emit RequestStringFulfilled(_requestId, _stringReturned);
-        bookAuthor = _stringReturned;
+        bookAuthor[bookShelfIndex] = _stringReturned;
     }
 
     function requestBookImageLinkUrl(string memory requestUrl) internal {
@@ -103,7 +105,7 @@ contract ScrollLibrary is IScrollLibrary, ChainlinkClient {
         string calldata _stringReturned
     ) public recordChainlinkFulfillment(_requestId) {
         emit RequestStringFulfilled(_requestId, _stringReturned);
-        bookImageLinkUrl = _stringReturned;
+        bookImageLinkUrl[bookShelfIndex] = _stringReturned;
     }
 
     function stringToBytes32(
