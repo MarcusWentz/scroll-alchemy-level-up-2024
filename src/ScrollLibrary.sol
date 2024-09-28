@@ -25,8 +25,12 @@ contract ScrollLibrary is ChainlinkClient {
     string public bookAuthor;
     string public bookImageLinkUrl;
 
+    // Example with Sonic the Hedgehog book.
+    string public constant urlRebuiltJSON = "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902";
+
     error notEnoughLinkForTwoRequests();
 
+    event newStringUrlRequest(string requestUrl);
     event RequestUint256Fulfilled(bytes32 indexed requestId, uint256 indexed numberValue);
     event RequestStringFulfilled(bytes32 indexed requestId, string indexed stringValue);
 
@@ -34,15 +38,17 @@ contract ScrollLibrary is ChainlinkClient {
         _setChainlinkToken(chainlinkTokenAddressScroll);
     }
 
-    function getMultipleChainlinkRequests() public {
+    function getMultipleChainlinkRequests(string calldata isbnValue) public {
         uint256 requestFeeTwoRequest = IERC20(address(chainlinkTokenAddressScroll)).balanceOf(address(this));
         if(requestFeeTwoRequest < 3*ORACLE_PAYMENT) revert notEnoughLinkForTwoRequests();
-        requestBookName();
-        requestBookAuthor();
-        requestBookImageLinkUrl();
+        string memory requestUrlMemory = string( abi.encodePacked(urlRebuiltJSON,isbnValue) );
+        emit newStringUrlRequest(requestUrlMemory);
+        requestBookName(requestUrlMemory);
+        requestBookAuthor(requestUrlMemory);
+        requestBookImageLinkUrl(requestUrlMemory);
     }
 
-    function requestBookName() public {
+    function requestBookName(string memory requestUrl) public {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -50,7 +56,7 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
+            requestUrl
         );
         req._add("path", "items,0,volumeInfo,title");
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
@@ -64,7 +70,7 @@ contract ScrollLibrary is ChainlinkClient {
         bookName = _stringReturned;
     }
 
-    function requestBookAuthor() public {
+    function requestBookAuthor(string memory requestUrl) public {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -72,7 +78,7 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
+            requestUrl
         );
         req._add("path", "items,0,volumeInfo,authors,0");
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
@@ -86,7 +92,7 @@ contract ScrollLibrary is ChainlinkClient {
         bookAuthor = _stringReturned;
     }
 
-    function requestBookImageLinkUrl() public {
+    function requestBookImageLinkUrl(string memory requestUrl) public {
         Chainlink.Request memory req = _buildChainlinkRequest(
             stringToBytes32(jobIdScrollString),
             address(this),
@@ -94,7 +100,7 @@ contract ScrollLibrary is ChainlinkClient {
         );
         req._add(
             "get",
-            "https://www.googleapis.com/books/v1/volumes?q=isbn:1879794902"
+            requestUrl
         );
         req._add("path", "items,0,volumeInfo,imageLinks,thumbnail");
         _sendChainlinkRequestTo(oracleOperatorAddressScroll, req, ORACLE_PAYMENT);
