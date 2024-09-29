@@ -36,6 +36,10 @@ Working string request contract that updated uint256 values:
 
 https://sepolia.scrollscan.com/address/0xcafec77253150a920a81118ae82381223b4b13f5#code
 
+### ScrollLibrary.sol
+
+https://sepolia.scrollscan.com/address/0x7bbb7716b346874e31fa40f1c959868720f25fd2#code
+
 ## Foundry 
 
 :warning: Note: you might need to add libraries in forge with remappings.txt :warning:
