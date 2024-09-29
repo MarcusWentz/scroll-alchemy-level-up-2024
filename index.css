@@ -45,14 +45,6 @@
     display: inline-block;
     font-size: 16px;
 }
-
-.container {
-    position: relative;
-    padding: 30px;
-    /* margin-right: auto;
-    margin-left: auto; */
-    text-align: center;
-}
   
 .center {
     margin: 0;
@@ -61,4 +53,24 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.outer-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allows wrapping if needed */
+    gap: 20px;        /* Optional: Adjust spacing between containers */
+    justify-content: center; /* Center all items horizontally */
+  }
+  
+/* H */
+
+.container {
+    /* Ver */
+    position: relative;
+    padding: 100px;
+    /* margin-right: auto;
+    margin-left: auto; */
+    text-align: center;
+    /* Hor */
+    flex: 0 0 auto;  /* Prevent shrinking and ensure containers keep their size */
 }
