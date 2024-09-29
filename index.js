@@ -153,26 +153,26 @@ ethereumButton.addEventListener('click', () => {
     enableMetamaskOnSepolia()
 });
 
-// MODIFY CONTRACT STATE WITH SET FUNCTION WITH PREDEFINED DATA FROM WEB3.JS
-const changeStateInContractEvent = document.querySelector('.changeStateInContractEvent');
-changeStateInContractEvent.addEventListener('click', () => {
-  checkAddressMissingMetamask()
+// // MODIFY CONTRACT STATE WITH SET FUNCTION WITH PREDEFINED DATA FROM WEB3.JS
+// const changeStateInContractEvent = document.querySelector('.changeStateInContractEvent');
+// changeStateInContractEvent.addEventListener('click', () => {
+//   checkAddressMissingMetamask()
   
-  var inputContractText = document.getElementById("setValueSmartContract").value.toString();
+//   var inputContractText = document.getElementById("setValueSmartContract").value.toString();
 
-  if(/^\d+$/.test(inputContractText)==false) {
-    alert("Can only accept numeric characters.")
-    return
-  }
+//   if(/^\d+$/.test(inputContractText)==false) {
+//     alert("Can only accept numeric characters.")
+//     return
+//   }
 
-  if(BigInt(inputContractText) > (BigInt(2**256)-BigInt(1)) ) {
-    alert("Value is larger than uin256 max value ((2^256)-1).")
-    return
-  }
+//   if(BigInt(inputContractText) > (BigInt(2**256)-BigInt(1)) ) {
+//     alert("Value is larger than uin256 max value ((2^256)-1).")
+//     return
+//   }
 
-  sentTxAsync(inputContractText)
+//   sentTxAsync(inputContractText)
 
-})
+// })
 
 //If Metamask is not detected the user will be told to install Metamask.
 function detectMetamaskInstalled(){
